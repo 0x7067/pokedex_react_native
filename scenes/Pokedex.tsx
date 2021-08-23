@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, StyleSheet, Modal} from 'react-native';
 import {Spinner} from '../components/Spinner';
 
 export const Pokedex = () => {
@@ -13,7 +13,13 @@ export const Pokedex = () => {
   console.log(data);
 
   if (isLoading) {
-    return <Spinner />;
+    return (
+      <Modal>
+        <View style={styles.loadingContainer}>
+          <Spinner />
+        </View>
+      </Modal>
+    );
   }
   return (
     <View>
@@ -45,10 +51,17 @@ const getPokemonByUrl = (url: string) => {
   return fetch(url)
     .then(response => response.json())
     .then(pokemon => {
-      const pokemon2 = {
+      return {
         name: pokemon.name,
         imageUrl: pokemon.sprites.other['official-artwork'].front_default,
       };
-      return pokemon2;
     });
 };
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+  },
+});

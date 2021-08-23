@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Animated, Image, Easing} from 'react-native';
+import {Animated, Easing} from 'react-native';
 
 export const Spinner = () => {
   const animation = useState(new Animated.Value(0))[0];
