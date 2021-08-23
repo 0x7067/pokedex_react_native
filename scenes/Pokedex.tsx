@@ -1,11 +1,20 @@
 import React, {useState} from 'react';
 import {View, Text, Image} from 'react-native';
+import {Spinner} from '../components/Spinner';
+
 export const Pokedex = () => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([] as any[]);
 
-  getPokemons(10).then(pokemons => setData(pokemons));
+  getPokemons(151).then(pokemons => {
+    setLoading(false);
+    setData(pokemons);
+  });
   console.log(data);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
   return (
     <View>
       {data.map(pokemon => (
