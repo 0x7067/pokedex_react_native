@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, VFC} from 'react';
 import {View, Text, Image, StyleSheet, Modal} from 'react-native';
+import {getPokemons} from '../api/Index';
+import {BasicPokemonInfo} from '../api/types';
 import {Spinner} from '../components/Spinner';
 
-export const Pokedex = () => {
+export const Pokedex: VFC = () => {
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([] as any[]);
+  const [data, setData] = useState([] as BasicPokemonInfo[]);
 
   getPokemons(151).then(pokemons => {
     setLoading(false);
@@ -36,26 +38,6 @@ export const Pokedex = () => {
       ))}
     </View>
   );
-};
-
-const getPokemons = (limit: number) => {
-  return fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`)
-    .then(response => response.json())
-    .then(({results}) =>
-      Promise.all(results.map(({url}) => getPokemonByUrl(url))),
-    )
-    .catch(error => []);
-};
-
-const getPokemonByUrl = (url: string) => {
-  return fetch(url)
-    .then(response => response.json())
-    .then(pokemon => {
-      return {
-        name: pokemon.name,
-        imageUrl: pokemon.sprites.other['official-artwork'].front_default,
-      };
-    });
 };
 
 const styles = StyleSheet.create({

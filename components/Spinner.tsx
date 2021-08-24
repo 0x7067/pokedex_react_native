@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, VFC} from 'react';
 import {Animated, Easing} from 'react-native';
 
-export const Spinner = () => {
+export const Spinner: VFC = () => {
   const animation = useState(new Animated.Value(0))[0];
   const CallAnimation = () => {
     animation.setValue(0);
