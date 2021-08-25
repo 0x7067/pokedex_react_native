@@ -2,6 +2,7 @@ import {
   BasicPokemonInfo,
   GetPokemonByURLResponse,
   GetPokemonsResponse,
+  GetPokemonByNameResponse,
 } from './types';
 
 export const getPokemons = (limit: number): Promise<BasicPokemonInfo[]> => {
@@ -17,9 +18,22 @@ const getPokemonByUrl = (url: string): Promise<BasicPokemonInfo> => {
   return fetch(url)
     .then(response => response.json())
     .then((pokemon: GetPokemonByURLResponse) => {
+      const abilities = pokemon.abilities.map(({ability}) => ability);
+
+      const stats = pokemon.stats.map(({base_stat, stat: {name, url}}) => ({
+        base: base_stat,
+        name: name,
+        url: url,
+      }));
+
+      const imageUrl = pokemon.sprites.other['official-artwork'].front_default;
+
       return {
+        baseExperience: pokemon.base_experience,
+        abilities,
+        stats,
         name: pokemon.name,
-        imageUrl: pokemon.sprites.other['official-artwork'].front_default,
+        imageUrl,
       };
     });
 };

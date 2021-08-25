@@ -1,45 +1,28 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {NavigationContainer, StackActions} from '@react-navigation/native';
 
 import {Pokedex} from './scenes/Pokedex';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {PokedexEntry} from './components/PokedexEntry';
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Pokedex />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Pokedex"
+          component={Pokedex}
+          options={{title: 'Pokedex'}}
+        />
+        <Stack.Screen
+          name="PokedexEntry"
+          component={PokedexEntry}
+          options={{title: 'Pokedex Entry'}}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
