@@ -30,7 +30,7 @@ export const Pokedex: VFC = ({navigation}: any) => {
     setData(pokemons);
   });
   console.log(data);
-
+  // @TODO: lazy loading
   if (isLoading) {
     return (
       <Modal>
@@ -50,19 +50,30 @@ export const Pokedex: VFC = ({navigation}: any) => {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <View>
+          <View
+            style={{
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+            }}>
             {data.map(pokemon => (
               <Pressable
+                style={{
+                  minWidth: '30%',
+                  marginHorizontal: '1.5%',
+                  marginVertical: '1.5%',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderWidth: 2,
+                  borderColor: 'red',
+                }}
                 key={pokemon.name}
                 onPress={() => navigation.navigate('PokedexEntry', {pokemon})}>
                 <View>
-                  <View style={{flex: 1}}>
-                    <Text>{pokemon.name}</Text>
-                    <Image
-                      source={{uri: pokemon.imageUrl}}
-                      style={{width: 40, height: 40}}
-                    />
-                  </View>
+                  <Text>{pokemon.name}</Text>
+                  <Image
+                    source={{uri: pokemon.imageUrl}}
+                    style={{width: 60, height: 60}}
+                  />
                 </View>
               </Pressable>
             ))}

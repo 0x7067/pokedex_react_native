@@ -10,6 +10,7 @@ export interface BasicPokemonInfo {
   abilities: Ability[];
   baseExperience: number;
   stats: Stat[];
+  pokeTypes: PokeType[];
 }
 
 interface Ability {
@@ -23,6 +24,13 @@ interface Stat {
   url: string;
 }
 
+interface PokeType {
+  slot: number;
+  name: string;
+  url: string;
+}
+
+// @TODO: improve type
 export interface GetPokemonByURLResponse {
   name: string;
   sprites: {
@@ -49,6 +57,7 @@ export interface GetPokemonByURLResponse {
       url: string;
     };
   }[];
+  types: {slot: number; type: {name: string; url: string}}[];
 }
 
 export interface GetPokemonByNameResponse {}

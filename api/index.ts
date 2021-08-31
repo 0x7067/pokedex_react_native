@@ -28,12 +28,18 @@ const getPokemonByUrl = (url: string): Promise<BasicPokemonInfo> => {
 
       const imageUrl = pokemon.sprites.other['official-artwork'].front_default;
 
+      const pokeTypes = pokemon.types.map(({slot, type: {name, url}}) => ({
+        name,
+        slot,
+        url,
+      }));
       return {
         baseExperience: pokemon.base_experience,
         abilities,
         stats,
         name: pokemon.name,
         imageUrl,
+        pokeTypes,
       };
     });
 };
