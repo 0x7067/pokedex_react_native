@@ -13,7 +13,7 @@ import {
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {getPokemons} from '../api';
-import {BasicPokemonInfo} from '../api/types';
+import {BasicPokemonInfo} from '../types';
 import {Spinner} from '../components/Spinner';
 
 export const Pokedex: VFC = ({navigation}: any) => {
@@ -29,7 +29,6 @@ export const Pokedex: VFC = ({navigation}: any) => {
     setLoading(false);
     setData(pokemons);
   });
-  console.log(data);
   // @TODO: lazy loading
   if (isLoading) {
     return (

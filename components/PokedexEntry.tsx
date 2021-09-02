@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, Image, useWindowDimensions} from 'react-native';
-import {BasicPokemonInfo} from '../api/types';
+import {BasicPokemonInfo} from '../types';
 
 export const PokedexEntry = ({
   route: {
