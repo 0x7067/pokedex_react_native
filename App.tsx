@@ -6,7 +6,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {PokedexEntry} from './components/PokedexEntry';
 
 const Stack = createNativeStackNavigator();
-
+// @TODO: styled components
 const App = () => {
   return (
     <NavigationContainer>

@@ -1,3 +1,5 @@
+import {PokeTypeNames} from '../types';
+
 export interface GetPokemonsResponse {
   results: {
     url: string;
@@ -32,7 +34,7 @@ interface RawStats {
 
 interface RawType {
   slot: number;
-  type: {name: string; url: string};
+  type: {name: PokeTypeNames; url: string};
 }
 
 export interface GetPokemonByURLResponse {

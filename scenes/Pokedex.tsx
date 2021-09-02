@@ -25,12 +25,13 @@ export const Pokedex: VFC = ({navigation}: any) => {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([] as BasicPokemonInfo[]);
 
-  getPokemons(151).then(pokemons => {
+  getPokemons(40).then(pokemons => {
     setLoading(false);
     setData(pokemons);
   });
   // @TODO: lazy loading
   if (isLoading) {
+    // @TODO: skeleton loading
     return (
       <Modal>
         <View style={styles.loadingContainer}>
@@ -66,6 +67,7 @@ export const Pokedex: VFC = ({navigation}: any) => {
                   borderColor: 'red',
                 }}
                 key={pokemon.name}
+                // @TODO: Improve navigation functions with proper types
                 onPress={() => navigation.navigate('PokedexEntry', {pokemon})}>
                 <View>
                   <Text>{pokemon.name}</Text>

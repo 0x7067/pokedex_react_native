@@ -20,6 +20,28 @@ interface Stat {
 
 interface PokeType {
   slot: number;
-  name: string;
+  name: PokeTypeNames;
   url: string;
+}
+
+export enum PokeTypeNames {
+  'Normal' = 'Normal',
+  'Fire' = 'Fire',
+  'Fighting' = 'Fighting',
+  'Water' = 'Water',
+  'Flying' = 'Flying',
+  'Grass' = 'Grass',
+  'Poison' = 'Poison',
+  'Electric' = 'Electric',
+  'Ground' = 'Ground',
+  'Psychic' = 'Psychic',
+  'Rock' = 'Rock',
+  'Ice' = 'Ice',
+  'Bug' = 'Bug',
+  'Dragon' = 'Dragon',
+  'Ghost' = 'Ghost',
+  'Dark' = 'Dark',
+  'Steel' = 'Steel',
+  'Fairy' = 'Fairy',
+  '???' = '???',
 }
