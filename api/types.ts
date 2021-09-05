@@ -4,6 +4,7 @@ export interface GetPokemonsResponse {
   results: {
     url: string;
   }[];
+  next: string;
 }
 
 interface RawSprite {

@@ -10,6 +10,7 @@ import {
   ScrollView,
   useColorScheme,
   Pressable,
+  FlatList,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {getPokemons} from '../api';
@@ -24,12 +25,21 @@ export const Pokedex: VFC = ({navigation}: any) => {
   };
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([] as BasicPokemonInfo[]);
+  const [next, setNext] = useState('');
 
-  getPokemons(40).then(pokemons => {
-    setLoading(false);
-    setData(pokemons);
+  getPokemons(40).then(response => {
+    response.data.then(pokemons => {
+      setLoading(false);
+      setData(pokemons);
+      setNext(response.next);
+    });
   });
-  // @TODO: lazy loading
+
+  const handleOnListEnd = () => {
+    if (next) {
+      // @TODO: define a function for next "page"
+    }
+  };
   if (isLoading) {
     // @TODO: skeleton loading
     return (
@@ -43,19 +53,17 @@ export const Pokedex: VFC = ({navigation}: any) => {
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-            }}>
-            {data.map(pokemon => (
+      <View
+        style={{
+          backgroundColor: isDarkMode ? Colors.black : Colors.white,
+        }}>
+        <View>
+          <FlatList
+            numColumns={3}
+            data={data}
+            keyExtractor={pokemon => pokemon.name}
+            renderItem={({item: pokemon}) => (
+              // @TODO: Create component for pokemon
               <Pressable
                 style={{
                   minWidth: '30%',
@@ -77,10 +85,10 @@ export const Pokedex: VFC = ({navigation}: any) => {
                   />
                 </View>
               </Pressable>
-            ))}
-          </View>
+            )}
+          />
         </View>
-      </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
