@@ -27,12 +27,15 @@ export const Pokedex: VFC = ({navigation}: any) => {
   const [data, setData] = useState([] as BasicPokemonInfo[]);
   const [next, setNext] = useState('');
 
-  getPokemons(40).then(response => {
-    response.data.then(pokemons => {
-      setLoading(false);
-      setData(pokemons);
-      setNext(response.next);
-    });
+  //@TODO: Graceful exit
+  getPokemons(40).then(({data, next, error}) => {
+    console.log(error);
+    data &&
+      data.then(pokemons => {
+        setLoading(false);
+        setData(pokemons);
+        setNext(next ?? '');
+      });
   });
 
   const handleOnListEnd = () => {
