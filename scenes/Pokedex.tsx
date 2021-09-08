@@ -1,21 +1,18 @@
 import React, {useState, VFC} from 'react';
 import {
   View,
-  Text,
-  Image,
   StyleSheet,
   Modal,
   SafeAreaView,
   StatusBar,
-  ScrollView,
   useColorScheme,
-  Pressable,
   FlatList,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {getPokemons} from '../api';
 import {BasicPokemonInfo} from '../types';
 import {Spinner} from '../components/Spinner';
+import {PokemonButton} from '../components/PokemonButton';
 
 export const Pokedex: VFC = ({navigation}: any) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -65,29 +62,15 @@ export const Pokedex: VFC = ({navigation}: any) => {
             numColumns={3}
             data={data}
             keyExtractor={pokemon => pokemon.name}
+            // @TODO: Extract function
             renderItem={({item: pokemon}) => (
-              // @TODO: Create component for pokemon
-              <Pressable
-                style={{
-                  minWidth: '30%',
-                  marginHorizontal: '1.5%',
-                  marginVertical: '1.5%',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderWidth: 2,
-                  borderColor: 'red',
-                }}
-                key={pokemon.name}
+              <PokemonButton
                 // @TODO: Improve navigation functions with proper types
-                onPress={() => navigation.navigate('PokedexEntry', {pokemon})}>
-                <View>
-                  <Text>{pokemon.name}</Text>
-                  <Image
-                    source={{uri: pokemon.imageUrl}}
-                    style={{width: 60, height: 60}}
-                  />
-                </View>
-              </Pressable>
+                onPressCallback={() => {
+                  navigation.navigate('PokedexEntry', {pokemon});
+                }}
+                pokemon={pokemon}
+              />
             )}
           />
         </View>
