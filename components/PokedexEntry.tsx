@@ -2,6 +2,18 @@ import React from 'react';
 import {View, Text, Image, useWindowDimensions} from 'react-native';
 import {BasicPokemonInfo} from '../types';
 import {PokeType} from './Poketype';
+import styled, {css} from 'styled-components/native';
+
+// @TODO: separate this in another file
+const PokemonAvatar = styled.Image<{size: number}>`
+  ${props => {
+    const size = props.size * 0.8;
+    return css`
+      width: ${size}px;
+      height: ${size}px;
+    `;
+  }}
+`;
 
 export const PokedexEntry = ({
   route: {
@@ -16,10 +28,7 @@ export const PokedexEntry = ({
     // @TODO: create better components
     <View>
       <Text>{name}</Text>
-      <Image
-        source={{uri: imageUrl}}
-        style={{width: width * 0.8, height: width * 0.8}}
-      />
+      <PokemonAvatar size={width} source={{uri: imageUrl}} />
       {pokeTypes.map(({name}) => (
         <PokeType key={name} typeName={name} />
       ))}
