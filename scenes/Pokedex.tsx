@@ -58,6 +58,15 @@ export const Pokedex: VFC = ({navigation}: any) => {
       </Modal>
     );
   }
+  const renderPokemon = ({item}: {item: BasicPokemonInfo}) => (
+    <PokemonButton
+      // @TODO: Improve navigation functions with proper types
+      onPressCallback={() => {
+        navigation.navigate('PokedexEntry', {pokemon: item});
+      }}
+      pokemon={item}
+    />
+  );
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
@@ -79,16 +88,7 @@ export const Pokedex: VFC = ({navigation}: any) => {
           numColumns={3}
           data={data}
           keyExtractor={pokemon => pokemon.name}
-          // @TODO: Extract function
-          renderItem={({item: pokemon}) => (
-            <PokemonButton
-              // @TODO: Improve navigation functions with proper types
-              onPressCallback={() => {
-                navigation.navigate('PokedexEntry', {pokemon});
-              }}
-              pokemon={pokemon}
-            />
-          )}
+          renderItem={renderPokemon}
         />
       </View>
     </SafeAreaView>
