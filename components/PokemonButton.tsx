@@ -1,26 +1,26 @@
 import React from 'react';
 import {View, Text, Image, Pressable} from 'react-native';
 import {BasicPokemonInfo} from '../types';
+import styled from 'styled-components/native';
 
-export const PokemonButton = ({
-  // @TODO: Better typing
-  onPressCallback,
-  pokemon,
-}: {
+interface PokemonButtonProps {
   onPressCallback: () => void;
   pokemon: BasicPokemonInfo;
-}) => {
+}
+const StyledButton = styled.Pressable`min-width: 30%;
+margin-horizontal: 1.5%;
+margin-vertical: 1.5%;
+align-items: center;
+justify-content: center;
+border-width: 2px;
+border-color: red;`
+
+export const PokemonButton = ({
+  onPressCallback,
+  pokemon,
+}: PokemonButtonProps) => {
   return (
-    <Pressable
-      style={{
-        minWidth: '30%',
-        marginHorizontal: '1.5%',
-        marginVertical: '1.5%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderWidth: 2,
-        borderColor: 'red',
-      }}
+    <StyledButton
       key={pokemon.name}
       onPress={onPressCallback}>
       <View>
@@ -30,6 +30,6 @@ export const PokemonButton = ({
           style={{width: 60, height: 60}}
         />
       </View>
-    </Pressable>
+    </StyledButton>
   );
 };
